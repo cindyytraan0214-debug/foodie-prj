@@ -29,7 +29,7 @@ export default function HomePage() {
         {/* Background */}
         <div className="absolute inset-0">
           <Image
-            src="/menu_img/bkgrd.jpg"
+            src="/menu_img/bkgrd.jpg?v=2"
             alt="Vietnamese food background"
             fill
             className="object-cover object-center"
