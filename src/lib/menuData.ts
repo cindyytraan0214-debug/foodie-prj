@@ -105,7 +105,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Combo tiết kiệm: Cơm tấm kèm canh rong biển bổ dưỡng.',
     price: 38000,
     category: 'combo',
-    image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=500&q=80',
+    image: '/menu_img/Broken_Rice_Seaweed_Soup.png',
     popular: true,
   },
   {
@@ -116,7 +116,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Combo tiết kiệm: Bún thịt nướng kèm canh rong biển.',
     price: 38000,
     category: 'combo',
-    image: 'https://images.unsplash.com/photo-1617093727343-374698b1b08d?w=500&q=80',
+    image: '/menu_img/Vermicelli_Seaweed_Soup.jpg',
   },
   // TOPPINGS
   {
