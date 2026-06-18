@@ -20,7 +20,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Cơm tấm Việt Nam cổ điển phục vụ kèm các món ăn đặc trưng.',
     price: 25000,
     category: 'main',
-    image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80',
+    image: '/menu_img/Broken_Rice.png',
     popular: true,
   },
   {
@@ -31,7 +31,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Cơm tấm với sườn nướng, bì heo, và chả trứng hấp.',
     price: 39000,
     category: 'main',
-    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&q=80',
+    image: '/menu_img/Broken_Rice_with_the_Combination_Plate.jpg',
     popular: true,
   },
   {
@@ -42,7 +42,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Bún tươi với thịt heo nướng thơm và rau sống tươi mát.',
     price: 25000,
     category: 'main',
-    image: 'https://images.unsplash.com/photo-1555126634-323283e090fa?w=500&q=80',
+    image: '/menu_img/Grilled_Pork_Vermicelli.jpg',
     popular: true,
   },
   {
@@ -53,7 +53,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Bánh mì giòn với thịt heo nướng đậm đà và rau tươi.',
     price: 20000,
     category: 'main',
-    image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=500&q=80',
+    image: '/menu_img/Grilled_Pork_Baguette.jpg',
   },
   {
     id: 'banh-mi-trung',
@@ -63,7 +63,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Bánh mì giòn với trứng ốp la, sốt và các loại rau tươi.',
     price: 17000,
     category: 'main',
-    image: 'https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=500&q=80',
+    image: '/menu_img/Fried_Egg_Baguette.jpg',
   },
   {
     id: 'canh-rong-bien',
@@ -73,7 +73,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Canh rong biển thanh mát và bổ dưỡng với nước dùng đậm đà.',
     price: 15000,
     category: 'main',
-    image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500&q=80',
+    image: '/menu_img/Canh_Rong_Bien.webp',
   },
   // DRINKS
   {
@@ -84,7 +84,17 @@ export const menuItems: MenuItem[] = [
     descVi: 'Trà đá mát lạnh, món uống hoàn hảo kèm theo bữa ăn.',
     price: 2000,
     category: 'drinks',
-    image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&q=80',
+    image: '/menu_img/Iced_Tea.jpg',
+  },
+  {
+    id: 'sua-dau-nanh',
+    nameEn: 'Soy Milk',
+    nameVi: 'Sữa Đậu Nành',
+    descEn: 'Fresh homemade soy milk, smooth and naturally sweet.',
+    descVi: 'Sữa đậu nành tươi tự làm, mịn màng và ngọt tự nhiên.',
+    price: 5000,
+    category: 'drinks',
+    image: '/menu_img/Soy_Milk.jpg',
   },
   // COMBO
   {
@@ -117,7 +127,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Chả giò vàng giòn với nhân đậm đà thơm ngon.',
     price: 6000,
     category: 'toppings',
-    image: 'https://images.unsplash.com/photo-1548943487-a2e4e43b4853?w=500&q=80',
+    image: '/menu_img/Spring_Roll.jpg',
   },
   {
     id: 'cha-hap',
@@ -127,7 +137,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Chả hấp mềm và thơm ngon theo phong cách Việt Nam.',
     price: 6000,
     category: 'toppings',
-    image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=500&q=80',
+    image: '/menu_img/Steamed_Egg_Meatloaf.jpg',
   },
   {
     id: 'bi-heo',
@@ -137,7 +147,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Bì heo truyền thống Việt Nam với kết cấu độc đáo.',
     price: 5000,
     category: 'toppings',
-    image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=500&q=80',
+    image: '/menu_img/Shredded_Pork_Skin.jpg',
   },
   {
     id: 'suon-nuong',
@@ -147,7 +157,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Sườn nướng mềm ướp sốt đặc biệt của nhà hàng.',
     price: 23000,
     category: 'toppings',
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=500&q=80',
+    image: '/menu_img/Grilled_Pork_Skewers.jpg',
   },
   {
     id: 'trung-op-la',
@@ -157,7 +167,7 @@ export const menuItems: MenuItem[] = [
     descVi: 'Trứng ốp la kiểu Việt Nam vàng ruộm và chín tới.',
     price: 6000,
     category: 'toppings',
-    image: 'https://images.unsplash.com/photo-1510693206972-df098062cb71?w=500&q=80',
+    image: '/menu_img/Omelet.png',
   },
 ];
 
