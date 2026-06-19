@@ -10,7 +10,7 @@ import { useCart } from '@/contexts/CartContext';
 import { menuItems, formatPrice } from '@/lib/menuData';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 
-type PaymentMethod = 'cash' | 'bank' | 'ewallet';
+type PaymentMethod = 'cash' | 'bank' | 'momo' | 'vnpay';
 type Step = 'browse' | 'checkout' | 'success';
 
 export default function OrderPage() {
@@ -34,9 +34,10 @@ export default function OrderPage() {
   };
 
   const paymentOptions = [
-    { key: 'cash' as PaymentMethod, label: t.order.payment.cash, icon: Banknote },
-    { key: 'bank' as PaymentMethod, label: t.order.payment.bank, icon: CreditCard },
-    { key: 'ewallet' as PaymentMethod, label: t.order.payment.ewallet, icon: Wallet },
+    { key: 'cash' as PaymentMethod, label: t.order.payment.cash, icon: Banknote, img: null },
+    { key: 'bank' as PaymentMethod, label: t.order.payment.bank, icon: null, img: '/payment/bank_transfer.jpg' },
+    { key: 'momo' as PaymentMethod, label: t.order.payment.momo, icon: null, img: '/payment/momo.webp' },
+    { key: 'vnpay' as PaymentMethod, label: t.order.payment.vnpay, icon: null, img: '/payment/vnpay.png' },
   ];
 
   if (step === 'success') {
@@ -227,7 +228,7 @@ export default function OrderPage() {
           )}
 
           {step === 'checkout' && (
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-6xl mx-auto">
               <AnimatedSection>
                 <button
                   onClick={() => setStep('browse')}
@@ -235,53 +236,60 @@ export default function OrderPage() {
                 >
                   ← {lang === 'vi' ? 'Quay lại thực đơn' : 'Back to menu'}
                 </button>
-                <div className="bg-white rounded-3xl shadow-lg p-8">
-                  <h2 className="font-serif text-2xl font-bold text-[#7A0F16] mb-2">{t.order.info.title}</h2>
-                  <div className="divider-gold !mx-0 mb-6" />
+                
+                <form onSubmit={handleOrder} className="grid lg:grid-cols-2 gap-8 items-start">
+                  {/* LEFT COLUMN: User Information */}
+                  <div className="bg-white rounded-3xl shadow-lg p-8">
+                    <h2 className="font-serif text-2xl font-bold text-[#7A0F16] mb-2">{t.order.info.title}</h2>
+                    <div className="divider-gold !mx-0 mb-6" />
 
-                  {/* Order summary mini */}
-                  <div className="bg-[#F7F1E5] rounded-2xl p-4 mb-8">
-                    <p className="text-sm font-semibold text-gray-700 mb-3">{lang === 'vi' ? 'Đơn hàng của bạn:' : 'Your order:'}</p>
-                    {items.map((item) => (
-                      <div key={item.id} className="flex justify-between text-sm py-1">
-                        <span className="text-gray-600">{lang === 'vi' ? item.nameVi : item.nameEn} × {item.quantity}</span>
-                        <span className="font-semibold text-[#7A0F16]">{formatPrice(item.price * item.quantity)}</span>
+                    <div className="space-y-5">
+                      <div className="grid sm:grid-cols-2 gap-5">
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.order.info.name} *</label>
+                          <input required className="form-input" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.order.info.phone} *</label>
+                          <input required type="tel" className="form-input" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
+                        </div>
                       </div>
-                    ))}
-                    <div className="flex justify-between font-bold text-[#7A0F16] pt-2 mt-2 border-t border-[#D4AF37]/20 text-base">
-                      <span>{t.order.total}</span>
-                      <span>{formatPrice(total)}</span>
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.order.info.email}</label>
+                        <input type="email" className="form-input" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.order.info.address} *</label>
+                        <input required className="form-input" value={form.address} onChange={e => setForm({...form, address: e.target.value})} />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.order.info.notes}</label>
+                        <textarea rows={3} className="form-input resize-none" placeholder={t.order.info.notesPlaceholder} value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} />
+                      </div>
                     </div>
                   </div>
 
-                  <form onSubmit={handleOrder} className="space-y-5">
-                    <div className="grid sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.order.info.name} *</label>
-                        <input required className="form-input" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
+                  {/* RIGHT COLUMN: Order Summary & Payment */}
+                  <div className="bg-white rounded-3xl shadow-lg p-8">
+                    {/* Order summary mini */}
+                    <div className="bg-[#F7F1E5] rounded-2xl p-4 mb-8">
+                      <p className="text-sm font-semibold text-gray-700 mb-3">{lang === 'vi' ? 'Đơn hàng của bạn:' : 'Your order:'}</p>
+                      {items.map((item) => (
+                        <div key={item.id} className="flex justify-between text-sm py-1">
+                          <span className="text-gray-600">{lang === 'vi' ? item.nameVi : item.nameEn} × {item.quantity}</span>
+                          <span className="font-semibold text-[#7A0F16]">{formatPrice(item.price * item.quantity)}</span>
+                        </div>
+                      ))}
+                      <div className="flex justify-between font-bold text-[#7A0F16] pt-2 mt-2 border-t border-[#D4AF37]/20 text-base">
+                        <span>{t.order.total}</span>
+                        <span>{formatPrice(total)}</span>
                       </div>
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.order.info.phone} *</label>
-                        <input required type="tel" className="form-input" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.order.info.email}</label>
-                      <input type="email" className="form-input" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.order.info.address} *</label>
-                      <input required className="form-input" value={form.address} onChange={e => setForm({...form, address: e.target.value})} />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.order.info.notes}</label>
-                      <textarea rows={3} className="form-input resize-none" placeholder={t.order.info.notesPlaceholder} value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} />
                     </div>
 
                     {/* Payment */}
                     <div>
-                      <p className="text-sm font-semibold text-gray-700 mb-3">{t.order.payment.title}</p>
-                      <div className="grid grid-cols-3 gap-3">
+                      <h2 className="font-serif text-xl font-bold text-[#7A0F16] mb-4">{t.order.payment.title}</h2>
+                      <div className="grid grid-cols-2 gap-3">
                         {paymentOptions.map((opt) => {
                           const Icon = opt.icon;
                           return (
@@ -289,26 +297,32 @@ export default function OrderPage() {
                               key={opt.key}
                               type="button"
                               onClick={() => setPayment(opt.key)}
-                              className={`flex flex-col items-center gap-2 p-3.5 rounded-xl border-2 text-xs font-semibold transition-all duration-200 ${
+                              className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl border-2 text-xs font-semibold transition-all duration-200 ${
                                 payment === opt.key
                                   ? 'border-[#7A0F16] bg-[#7A0F16]/5 text-[#7A0F16]'
                                   : 'border-gray-200 text-gray-500 hover:border-[#7A0F16]/40'
                               }`}
                             >
-                              <Icon size={20} className={payment === opt.key ? 'text-[#7A0F16]' : 'text-gray-400'} />
-                              {opt.label}
+                              {opt.img ? (
+                                <div className="relative w-12 h-12 mb-1">
+                                  <Image src={opt.img} alt={opt.label} fill className="object-contain" sizes="48px" />
+                                </div>
+                              ) : (
+                                Icon && <Icon size={24} className={`mb-1 ${payment === opt.key ? 'text-[#7A0F16]' : 'text-gray-400'}`} />
+                              )}
+                              <span className="text-center">{opt.label}</span>
                             </button>
                           );
                         })}
                       </div>
                     </div>
 
-                    <button type="submit" className="btn-primary w-full py-4 text-base mt-2">
+                    <button type="submit" className="btn-primary w-full py-4 text-base mt-8">
                       <ShoppingBag size={18} />
                       {t.order.placeOrder} – {formatPrice(total)}
                     </button>
-                  </form>
-                </div>
+                  </div>
+                </form>
               </AnimatedSection>
             </div>
           )}

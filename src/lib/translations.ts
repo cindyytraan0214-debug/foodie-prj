@@ -88,7 +88,8 @@ export const translations = {
         title: 'Payment Method',
         cash: 'Cash on Delivery',
         bank: 'Bank Transfer',
-        ewallet: 'E-Wallet',
+        momo: 'MoMo E-Wallet',
+        vnpay: 'VNPay',
       },
       placeOrder: 'Place Order',
       success: {
@@ -250,9 +251,10 @@ export const translations = {
       },
       payment: {
         title: 'Phương Thức Thanh Toán',
-        cash: 'Tiền Mặt Khi Nhận Hàng',
-        bank: 'Chuyển Khoản Ngân Hàng',
-        ewallet: 'Ví Điện Tử',
+        cash: 'Thanh toán tiền mặt',
+        bank: 'Chuyển khoản ngân hàng',
+        momo: 'Ví MoMo',
+        vnpay: 'Cổng thanh toán VNPay',
       },
       placeOrder: 'Đặt Hàng',
       success: {

@@ -23,7 +23,7 @@ export default function ContactPage() {
     { icon: Mail, label: t.contact.email, value: 'huflit.thefoodies10@gmail.com', href: 'mailto:huflit.thefoodies10@gmail.com' },
     {
       icon: MapPin, label: t.contact.address,
-      value: '806 Lê Quang Đão, QL22, Tân Xuân, Hóc Môn, TP. HCM',
+      value: '806 Lê Quang Đạo, QL22, Tân Xuân, Hóc Môn, TP. HCM',
       href: 'https://maps.google.com/?q=806+Le+Quang+Dao+Hoc+Mon+Ho+Chi+Minh',
     },
     { icon: Clock, label: t.contact.hours, value: `${t.contact.hoursVal} · ${t.contact.hoursDay}`, href: null },
