@@ -16,10 +16,9 @@ export default function HomePage() {
   const whyIcons = [Leaf, ChefHat, DollarSign, Zap, Heart, Truck];
 
   const deliveryPlatforms = [
-    { name: 'GrabFood', color: '#00B14F', logo: '🟢', url: '#' },
-    { name: 'ShopeeFood', color: '#EE4D2D', logo: '🟠', url: '#' },
-    { name: 'BeFood', color: '#FFCC00', logo: '🟡', url: '#' },
-    { name: 'Gojek', color: '#00AA5A', logo: '🟢', url: '#' },
+    { name: 'GrabFood', color: '#00B14F', image: '/logo/grabfood_logo.jpg', url: '#' },
+    { name: 'ShopeeFood', color: '#EE4D2D', image: '/logo/shopeefood_logo.png', url: '#' },
+    { name: 'BeFood', color: '#FFCC00', image: '/logo/befood_logo.jpg', url: '#' },
   ];
 
   return (
@@ -236,7 +235,9 @@ export default function HomePage() {
                   href={p.url}
                   className="flex items-center gap-4 px-8 py-5 bg-white rounded-2xl shadow-lg border-2 border-gray-100 hover:border-[#D4AF37] hover:shadow-xl transition-all duration-300 group min-w-[200px]"
                 >
-                  <span className="text-3xl">{p.logo}</span>
+                  <div className="relative w-12 h-12 overflow-hidden rounded-full border border-gray-100 flex-shrink-0">
+                    <Image src={p.image} alt={p.name} fill className="object-cover" sizes="48px" />
+                  </div>
                   <div>
                     <p className="font-bold text-gray-900 text-base group-hover:text-[#7A0F16] transition-colors">{p.name}</p>
                     <p className="text-gray-400 text-xs">{lang === 'vi' ? 'Đặt ngay' : 'Order now'}</p>
