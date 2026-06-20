@@ -4,21 +4,25 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, Trash2, Plus, Minus, Star, CheckCircle, CreditCard, Wallet, Banknote } from 'lucide-react';
+import { ShoppingBag, Trash2, Plus, Minus, Star, CheckCircle, CreditCard, Wallet, Banknote, Sunrise } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useCart } from '@/contexts/CartContext';
 import { menuItems, formatPrice } from '@/lib/menuData';
 import AnimatedSection from '@/components/ui/AnimatedSection';
 
 type PaymentMethod = 'cash' | 'bank' | 'momo' | 'vnpay';
-type Step = 'browse' | 'checkout' | 'success';
+type Step = 'browse' | 'timing' | 'checkout' | 'success';
 
 export default function OrderPage() {
   const { t, lang } = useLanguage();
   const { items, addItem, removeItem, updateQty, clearCart, total, count } = useCart();
   const [step, setStep] = useState<Step>('browse');
   const [payment, setPayment] = useState<PaymentMethod>('cash');
+  const [deliveryType, setDeliveryType] = useState<'now' | 'schedule'>('now');
+  const [deliveryTime, setDeliveryTime] = useState<string>('06:00 AM');
   const [addedId, setAddedId] = useState<string | null>(null);
+
+  const timeSlots = ['06:00 AM', '06:30 AM', '07:00 AM', '07:30 AM', '08:00 AM', '08:30 AM', '09:00 AM'];
   const [form, setForm] = useState({ name: '', phone: '', email: '', address: '', notes: '' });
 
   const handleAdd = (item: typeof menuItems[0]) => {
@@ -58,10 +62,16 @@ export default function OrderPage() {
             <CheckCircle size={40} className="text-green-500" />
           </motion.div>
           <h2 className="font-serif text-3xl font-bold text-[#7A0F16] mb-3">{t.order.success.title}</h2>
-          <p className="text-gray-600 mb-3">{t.order.success.desc}</p>
-          <div className="bg-[#F7F1E5] rounded-xl px-5 py-3 mb-8">
-            <p className="text-[#7A0F16] font-semibold text-sm">⏱️ {t.order.success.time}</p>
-          </div>
+          <p className="text-gray-600 mb-3">
+            {deliveryType === 'schedule' 
+              ? (t.order.success as any).scheduledDesc.replace('{time}', deliveryTime)
+              : t.order.success.desc}
+          </p>
+          {deliveryType === 'now' && (
+            <div className="bg-[#F7F1E5] rounded-xl px-5 py-3 mb-8">
+              <p className="text-[#7A0F16] font-semibold text-sm">⏱️ {t.order.success.time}</p>
+            </div>
+          )}
           <div className="flex flex-col sm:flex-row gap-3">
             <Link href="/" className="btn-primary flex-1 py-3">
               {t.order.success.backHome}
@@ -212,7 +222,7 @@ export default function OrderPage() {
                             </div>
 
                             <button
-                              onClick={() => setStep('checkout')}
+                              onClick={() => setStep('timing')}
                               className="mt-4 btn-primary w-full py-3.5 text-sm"
                             >
                               {t.order.checkout}
@@ -227,14 +237,107 @@ export default function OrderPage() {
             </div>
           )}
 
+          {step === 'timing' && (
+            <div className="max-w-4xl mx-auto">
+              <AnimatedSection>
+                <button onClick={() => setStep('browse')} className="text-[#7A0F16] text-sm font-medium mb-6 flex items-center gap-2 hover:gap-3 transition-all">
+                  ← {lang === 'vi' ? 'Quay lại giỏ hàng' : 'Back to cart'}
+                </button>
+                <div className="bg-white rounded-3xl shadow-lg p-8">
+                  <h2 className="font-serif text-2xl font-bold text-[#7A0F16] mb-2">{(t.order as any).timing.title}</h2>
+                  <div className="divider-gold !mx-0 mb-6" />
+                  
+                  <div className="grid md:grid-cols-2 gap-6 mb-8">
+                    {/* Order Now Option */}
+                    <div 
+                      onClick={() => setDeliveryType('now')}
+                      className={`relative cursor-pointer rounded-2xl p-6 border-2 transition-all duration-300 ${deliveryType === 'now' ? 'border-[#7A0F16] bg-[#7A0F16]/5 shadow-md' : 'border-gray-200 hover:border-[#7A0F16]/40'}`}
+                    >
+                      <div className="flex items-center gap-4 mb-3">
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${deliveryType === 'now' ? 'bg-[#7A0F16] text-white' : 'bg-gray-100 text-gray-400'}`}>
+                          <ShoppingBag size={24} />
+                        </div>
+                        <h3 className={`font-serif text-xl font-bold ${deliveryType === 'now' ? 'text-[#7A0F16]' : 'text-gray-700'}`}>{(t.order as any).timing.now}</h3>
+                      </div>
+                      <p className="text-gray-600 text-sm pl-16">{(t.order as any).timing.nowDesc}</p>
+                      
+                      {deliveryType === 'now' && (
+                        <div className="absolute top-6 right-6">
+                          <CheckCircle className="text-[#7A0F16]" size={24} />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Schedule Option */}
+                    <div 
+                      onClick={() => setDeliveryType('schedule')}
+                      className={`relative cursor-pointer rounded-2xl p-6 border-2 transition-all duration-300 overflow-hidden ${deliveryType === 'schedule' ? 'border-[#D4AF37] bg-[#D4AF37]/5 shadow-md' : 'border-gray-200 hover:border-[#D4AF37]/40'}`}
+                    >
+                      <div className="absolute top-0 right-0 bg-[#D4AF37] text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider flex items-center gap-1 shadow-sm">
+                        <Star size={10} fill="currentColor" /> {(t.order as any).timing.badge}
+                      </div>
+
+                      <div className="flex items-center gap-4 mb-3 mt-1">
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center ${deliveryType === 'schedule' ? 'bg-[#D4AF37] text-white' : 'bg-gray-100 text-gray-400'}`}>
+                          <Sunrise size={24} />
+                        </div>
+                        <h3 className={`font-serif text-xl font-bold pr-12 ${deliveryType === 'schedule' ? 'text-[#D4AF37]' : 'text-gray-700'}`}>{(t.order as any).timing.schedule}</h3>
+                      </div>
+                      <p className="text-gray-600 text-sm pl-16 mb-4">{(t.order as any).timing.scheduleDesc}</p>
+                      
+                      {/* Time Selector */}
+                      <AnimatePresence>
+                        {deliveryType === 'schedule' && (
+                          <motion.div 
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="pl-16 overflow-hidden"
+                          >
+                            <div className="pt-2 border-t border-[#D4AF37]/20">
+                              <label className="block text-sm font-semibold text-gray-700 mb-2">{(t.order as any).timing.selectTime}</label>
+                              <div className="flex flex-wrap gap-2">
+                                {timeSlots.map(time => (
+                                  <button
+                                    key={time}
+                                    onClick={(e) => { e.stopPropagation(); setDeliveryTime(time); }}
+                                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${deliveryTime === time ? 'bg-[#D4AF37] text-white shadow-sm' : 'bg-white border border-gray-200 text-gray-600 hover:border-[#D4AF37]'}`}
+                                  >
+                                    {time}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      {deliveryType === 'schedule' && (
+                        <div className="absolute top-6 right-6">
+                          <CheckCircle className="text-[#D4AF37]" size={24} />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end">
+                    <button onClick={() => setStep('checkout')} className="btn-primary py-3.5 px-8 text-base">
+                      {(t.order as any).timing.continue} →
+                    </button>
+                  </div>
+                </div>
+              </AnimatedSection>
+            </div>
+          )}
+
           {step === 'checkout' && (
             <div className="max-w-6xl mx-auto">
               <AnimatedSection>
                 <button
-                  onClick={() => setStep('browse')}
+                  onClick={() => setStep('timing')}
                   className="text-[#7A0F16] text-sm font-medium mb-6 flex items-center gap-2 hover:gap-3 transition-all"
                 >
-                  ← {lang === 'vi' ? 'Quay lại thực đơn' : 'Back to menu'}
+                  ← {lang === 'vi' ? 'Quay lại chọn giờ' : 'Back to timing'}
                 </button>
                 
                 <form onSubmit={handleOrder} className="grid lg:grid-cols-2 gap-8 items-start">
@@ -284,6 +387,21 @@ export default function OrderPage() {
                         <span>{t.order.total}</span>
                         <span>{formatPrice(total)}</span>
                       </div>
+                    </div>
+
+                    {/* Delivery Timing Info */}
+                    <div className="bg-[#D4AF37]/10 border border-[#D4AF37]/30 rounded-2xl p-4 mb-8">
+                      <div className="flex items-center gap-3 mb-2">
+                        {deliveryType === 'now' ? <ShoppingBag size={18} className="text-[#7A0F16]" /> : <Sunrise size={18} className="text-[#D4AF37]" />}
+                        <p className="text-sm font-semibold text-gray-800">
+                          {(t.order as any).timing.deliveryType} <span className={deliveryType === 'now' ? 'text-[#7A0F16]' : 'text-[#D4AF37]'}>{deliveryType === 'now' ? (t.order as any).timing.now : (t.order as any).timing.schedule}</span>
+                        </p>
+                      </div>
+                      {deliveryType === 'schedule' && (
+                        <p className="text-sm text-gray-600 pl-7">
+                          {(t.order as any).timing.scheduledFor} <span className="font-bold text-gray-900">{deliveryTime}</span>
+                        </p>
+                      )}
                     </div>
 
                     {/* Payment */}

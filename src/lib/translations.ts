@@ -75,6 +75,18 @@ export const translations = {
       total: 'Total',
       free: 'Free',
       checkout: 'Proceed to Checkout',
+      timing: {
+        title: 'Choose Delivery Time',
+        now: 'Order Now',
+        nowDesc: 'Receive the order as soon as possible after checkout.',
+        schedule: 'Schedule for Tomorrow Morning',
+        scheduleDesc: 'Place the order today and choose a delivery time for tomorrow morning.',
+        selectTime: 'Select Time:',
+        continue: 'Continue to Checkout',
+        badge: 'Signature Feature',
+        deliveryType: 'Delivery Type:',
+        scheduledFor: 'Scheduled for:',
+      },
       info: {
         title: 'Your Information',
         name: 'Full Name',
@@ -95,6 +107,7 @@ export const translations = {
       success: {
         title: 'Order Placed Successfully!',
         desc: "Thank you for your order. We'll prepare your food right away and deliver it fresh to you.",
+        scheduledDesc: 'Thank you for your order. Your breakfast has been successfully scheduled and will be delivered tomorrow at {time}.',
         time: 'Estimated delivery time: 30–45 minutes',
         backHome: 'Back to Home',
         newOrder: 'Place Another Order',
@@ -240,6 +253,18 @@ export const translations = {
       total: 'Tổng Cộng',
       free: 'Miễn Phí',
       checkout: 'Tiến Hành Thanh Toán',
+      timing: {
+        title: 'Chọn Thời Gian Giao Hàng',
+        now: 'Giao Ngay',
+        nowDesc: 'Nhận hàng trong thời gian sớm nhất sau khi đặt.',
+        schedule: 'Hẹn Giao Sáng Mai',
+        scheduleDesc: 'Đặt hàng hôm nay và chọn giờ giao hàng cho sáng ngày mai.',
+        selectTime: 'Chọn Giờ Giao:',
+        continue: 'Tiếp Tục Thanh Toán',
+        badge: 'Tính Năng Đặc Trưng',
+        deliveryType: 'Hình thức giao:',
+        scheduledFor: 'Hẹn giao lúc:',
+      },
       info: {
         title: 'Thông Tin Của Bạn',
         name: 'Họ Và Tên',
@@ -260,6 +285,7 @@ export const translations = {
       success: {
         title: 'Đặt Hàng Thành Công!',
         desc: 'Cảm ơn bạn đã đặt hàng. Chúng tôi sẽ chuẩn bị ngay và giao hàng tươi ngon đến bạn.',
+        scheduledDesc: 'Cảm ơn bạn. Bữa sáng của bạn đã được lên lịch thành công và sẽ được giao vào ngày mai lúc {time}.',
         time: 'Thời gian giao hàng dự kiến: 30–45 phút',
         backHome: 'Về Trang Chủ',
         newOrder: 'Đặt Hàng Mới',
