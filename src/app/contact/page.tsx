@@ -89,7 +89,7 @@ export default function ContactPage() {
                 <div className="bg-white px-5 py-4 flex items-center justify-between">
                   <div>
                     <p className="font-semibold text-gray-900 text-sm">The Foodies 10</p>
-                    <p className="text-gray-500 text-xs">806 Lê Quang Đão, Hóc Môn, TP. HCM</p>
+                    <p className="text-gray-500 text-xs">806 Lê Quang Đạo, Hóc Môn, TP. HCM</p>
                   </div>
                   <a
                     href="https://maps.google.com/?q=806+Le+Quang+Dao+Hoc+Mon+Ho+Chi+Minh"

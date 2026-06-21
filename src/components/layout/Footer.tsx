@@ -49,7 +49,7 @@ export default function Footer() {
       <div className="bg-gradient-to-r from-[#7A0F16] to-[#8B1E23] py-6 px-4">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="font-serif text-xl font-semibold text-white text-center sm:text-left">
-            🍽️ Ready to taste Vietnam? Order now!
+            Ready to taste Vietnamese Food? Order now!
           </p>
           <div className="flex gap-3">
             <Link href="/order" className="btn-gold text-sm py-2 px-5">
@@ -153,7 +153,7 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="text-[#D4AF37] mt-0.5 flex-shrink-0" />
                 <p className="text-gray-300 text-sm leading-relaxed">
-                  806 Lê Quang Đão, QL22,<br />
+                  806 Lê Quang Đạo, QL22,<br />
                   Tân Xuân, Hóc Môn,<br />
                   TP. Hồ Chí Minh
                 </p>
