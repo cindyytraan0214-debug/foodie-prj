@@ -48,6 +48,7 @@ export const menuItems: MenuItem[] = [
     price: 45000,
     category: 'main',
     image: '/menu_img/Whole_Wheat_Pork_Baguette.jpg',
+    popular: true,
   },
   {
     id: 'banh-mi-trung',
@@ -80,7 +81,6 @@ export const menuItems: MenuItem[] = [
     price: 79000,
     category: 'combo',
     image: '/menu_img/Brown_Rice_Seaweed_Soup_Combo.jpg',
-    popular: true,
   },
   {
     id: 'combo-bun-canh',
