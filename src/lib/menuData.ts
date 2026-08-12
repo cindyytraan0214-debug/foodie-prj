@@ -33,7 +33,7 @@ export const menuItems: MenuItem[] = [
     subName: 'Bún Nưa Thịt Nướng',
     descEn: 'Fresh vermicelli noodles topped with fragrant grilled pork and fresh herbs.',
     descVi: 'Bún tươi với thịt heo nướng thơm và rau sống tươi mát.',
-    price: 45000,
+    price: 75000,
     category: 'main',
     image: '/menu_img/Grilled_Pork_Vermicelli.jpg',
     popular: true,
